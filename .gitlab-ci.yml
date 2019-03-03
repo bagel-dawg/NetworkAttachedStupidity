@@ -1,0 +1,48 @@
+image: "git-community.cs.odu.edu/ryan/blog-template:latest" # Custom Ruby image, replace with whatever you want
+stages:
+  - deploy
+
+variables:
+  AWS_DEFAULT_REGION: us-east-1 # The region of our S3 bucket
+  BUCKET_NAME: bageltech.io         # Your bucket name
+
+deploys3-master:
+  image: "python:latest"  # We use python because there is a well-working AWS Sdk
+  stage: deploy
+  only:
+    - master@ryan/blog-template
+  before_script:
+    - mkdir -p ~/gems
+    - export GEM_HOME=~/gems
+    - export PATH=~/gems/bin:$PATH
+    - virtualenv ~/blog-venv
+    - source ~/blog-venv/bin/activate
+    - pip install awscli # Install the SDK
+    - gem install bundler jekyll jekyll-sitemap
+  script:
+    - jekyll build
+    - aws s3 sync _site s3://${BUCKET_NAME}/  # Replace example-bucket with your bucket
+    - aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /\* #Invalidate the cloudfront caches to refresh with new content
+  environment:
+    name: ${CI_COMMIT_REF_SLUG}
+    url: http://${BUCKET_NAME}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/  # This is the url of the bucket we saved before
+
+deploys3-dev:
+  image: "python:latest"  # We use python because there is a well-working AWS Sdk
+  stage: deploy
+  only:
+    - development@ryan/blog-template
+  before_script:
+    - mkdir -p ~/gems
+    - export GEM_HOME=~/gems
+    - export PATH=~/gems/bin:$PATH
+    - virtualenv ~/blog-venv
+    - source ~/blog-venv/bin/activate
+    - pip install awscli # Install the SDK
+    - gem install bundler jekyll jekyll-sitemap
+  script:
+    - jekyll build
+    - aws s3 sync _site s3://dev.${BUCKET_NAME}/  # Replace example-bucket with your bucket
+  environment:
+    name: ${CI_COMMIT_REF_SLUG}
+    url: http://dev.${BUCKET_NAME}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com/  # This is the url of the bucket we saved before

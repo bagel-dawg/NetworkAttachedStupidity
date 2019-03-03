@@ -1,0 +1,46 @@
+# Site settings
+title: "Network Attached Stupidity"
+email: ryan@bageltechnologies.com
+description: "Systems Administration for those in the back of the class"
+baseurl: ""
+url: "https://bageltech.io"
+title_description: "A blog discussing topics in Systems Administration for those who got Cs in high school. Disclaimer: Always understandable, occasionally correct."
+title_image: "https://secure.gravatar.com/avatar/2995749beb4abdbbbd1ce37bfb19a1f6?s=150&d=mm"
+google_analytics: "UA-77669501-2"
+disqus_account:
+github_repository: https://github.com/bagel-dawg/
+addthis_id: 
+post_limit: 5
+
+# Social usernames/URLs
+twitter_username: 
+github_username:
+instagram_username:
+reddit_username: 
+linkedin_link: 
+google_plus_link: 
+stackoverflow_link:
+xing_link:
+facebook_link:
+
+# Footer
+#footer_left: "Made with <i class=\"fa fa-heart\"></i> by <a href=\"https://twitter.com/_JacobTomlinson\">Jacob Tomlinson</a>"
+footer_right: "&lt;/&gt; on <a href=\"https://github.com/jacobtomlinson/carte-noire\">Github</a> &nbsp;<i class=\"fa fa-github-alt\"></i>"
+
+# Build settings
+markdown: kramdown
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  parse_block_html: true
+
+collections:
+  author-bios:
+    output: true
+
+plugins:
+  - jekyll-sitemap
+
+permalink: pretty
+exclude: [vendor]

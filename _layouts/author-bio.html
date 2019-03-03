@@ -1,0 +1,27 @@
+---
+layout: default
+---
+
+<div class="container-fluid index">
+    <div class="row">
+
+    {% assign author = page %}
+
+	<div class="col-md-12 main content-panel">
+
+            <div class="gravatar" style="padding-top: 10%;">
+                 <img src="{{ page.image-src }}" class="img-circle about-image" height="150" width="150" alt="{{ page.name }}" />
+            </div>
+
+            <h1 class="header author-header" itemprop="headline">{{ page.name }}</h1>
+
+            <div class="author-text">
+                {{ content | markdownify }}
+            </div>
+
+            {% include author_social_links.html %}
+        </div>
+  
+	
+    </div>
+</div>
