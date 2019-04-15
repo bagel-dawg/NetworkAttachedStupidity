@@ -2,7 +2,7 @@ language: ruby
 cache: bundler
 script:
   - JEKYLL_ENV=production bundle exec jekyll build
-  - sudo pip install awscli
+  - pip install awscli
 deploy:
   provider: s3
   access_key_id: "$AWS_ACCESS_KEY_ID"
