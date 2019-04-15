@@ -2,12 +2,8 @@ matrix:
   include:  
     - language: ruby
       cache: bundler
-      branches:
-        only:
-          - master
       script:
-        - JEKYLL_ENV=production bundle exec jekyll build
-      
+        - JEKYLL_ENV=production bundle exec jekyll build     
       deploy:
         provider: s3
         access_key_id: "$AWS_ACCESS_KEY_ID"
@@ -16,8 +12,6 @@ matrix:
         skip_cleanup: true
         region: "us-east-1"
         local_dir: _site
-        on:
-          branch: master
 
        - language: python
         install:
