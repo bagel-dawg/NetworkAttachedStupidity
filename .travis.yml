@@ -19,8 +19,8 @@ jobs:
         local_dir: "_site"
         
     - stage: deploy
-     language: python
+      language: python
       install:
-       - pip install awscli
+        - pip install awscli
       script:
-       - aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /\*
+        - aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /\*
