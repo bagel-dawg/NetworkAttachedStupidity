@@ -1,26 +1,15 @@
-stages:
-  - build
-  - deploy
-
-jobs:
-  include:
-    - stage: build
-      language: ruby
-      cache: bundler
-      script:
-        - JEKYLL_ENV=production bundle exec jekyll build
-      deploy:
-        provider: s3
-        access_key_id: "$AWS_ACCESS_KEY_ID"
-        secret_access_key: "$AWS_SECRET_ACCESS_KEY"
-        bucket: "bageltech.io"
-        skip_cleanup: true
-        region: "us-east-1"
-        local_dir: "_site"
-        
-    - stage: deploy
-      language: python
-      install:
-        - pip install awscli
-      script:
-        - aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /\*
+language: ruby
+cache: bundler
+script:
+  - JEKYLL_ENV=production bundle exec jekyll build
+  - sudo pip install awscli
+deploy:
+  provider: s3
+  access_key_id: "$AWS_ACCESS_KEY_ID"
+  secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+  bucket: "bageltech.io"
+  skip_cleanup: true
+  region: "us-east-1"
+  local_dir: "_site"
+  afer_deploy:
+    -  aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /\*
