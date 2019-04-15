@@ -3,7 +3,8 @@ matrix:
     - language: ruby
       cache: bundler
       script:
-        - JEKYLL_ENV=production bundle exec jekyll build     
+        - JEKYLL_ENV=production bundle exec jekyll build
+      
       deploy:
         provider: s3
         access_key_id: "$AWS_ACCESS_KEY_ID"
@@ -11,10 +12,10 @@ matrix:
         bucket: "bageltech.io"
         skip_cleanup: true
         region: "us-east-1"
-        local_dir: _site
+        local_dir: "_site"		  
 
-       - language: python
+    - language: python
         install:
-                - pip install awscli
+         - pip install awscli
         script:
-                - aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /\*
+         - aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /\*
