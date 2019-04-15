@@ -1,6 +1,11 @@
-matrix:
-  include:  
-    - language: ruby
+stages:
+  - build
+  - deploy
+
+jobs:
+  include:
+    - stage: build
+      language: ruby
       cache: bundler
       script:
         - JEKYLL_ENV=production bundle exec jekyll build
@@ -11,8 +16,10 @@ matrix:
         bucket: "bageltech.io"
         skip_cleanup: true
         region: "us-east-1"
-        local_dir: "_site"		  
-    - language: python
+        local_dir: "_site"
+        
+    - stage: deploy
+     language: python
       install:
        - pip install awscli
       script:
