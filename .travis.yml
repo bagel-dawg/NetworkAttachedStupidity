@@ -13,7 +13,7 @@ matrix:
         region: "us-east-1"
         local_dir: "_site"		  
     - language: python
-        install:
-         - pip install awscli
-        script:
-         - aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /\*
+      install:
+       - pip install awscli
+      script:
+       - aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /\*
