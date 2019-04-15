@@ -11,5 +11,5 @@ deploy:
   skip_cleanup: true
   region: "us-east-1"
   local_dir: "_site"
-  after_deploy:
-    - "aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /*"
+after_deploy:
+  - "aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /*"
