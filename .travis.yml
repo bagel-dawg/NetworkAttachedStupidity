@@ -1,6 +1,6 @@
 matrix:
   include:  
-	- language: ruby
+    - language: ruby
       cache: bundler
       branches:
         only:
@@ -19,8 +19,8 @@ matrix:
         on:
           branch: master
 		  
-	- language: python
-	  install:
-	    - pip install awscli
-	  script:
-	    - aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /\*
+       - language: python
+        install:
+                - pip install awscli
+        script:
+                - aws cloudfront create-invalidation --distribution-id EU300WCBKGQEU --paths /\*
